@@ -9,18 +9,20 @@ const Login = () => {
         <View style={styles.componentContainer}>
             <Text style={styles.title}>Sign in</Text>
 
-            <TextInput
-                style={styles.input}
-                value={text}
-            />
-            <TextInput
-                style={styles.input}
-                value={text}
-            />
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    value={text}
+                    onChange={onChangeText}
+                />
+                <TextInput
+                    style={styles.input}
+                    value={text}
+                />
+            </View>
 
-
-            <Pressable style={styles.button} >
-                <Text style={styles.buttonText}>Create an account</Text>
+            <Pressable style={styles.button}>
+                <Text style={styles.buttonText}>Sign in</Text>
             </Pressable>
 
         </View>
@@ -55,17 +57,21 @@ const styles = StyleSheet.create({
         height: 56,
         elevation: 3,
         backgroundColor: '#EFB837',
-        margin: 30
+        margin: 30,
+        marginTop: 120,
     },
     buttonText: {
         color: "white",
         fontWeight: "bold",
     },
+    inputContainer: {
+        marginTop: 130,
+        marginLeft: 32,
+    },
     input: {
         height: 40,
-        margin: 12,
+        marginTop: 25,
         width: 325,
-        marginLeft: 32,
         borderWidth: 1,
         borderRadius: 8,
         borderColor: '#5F5F5F',
