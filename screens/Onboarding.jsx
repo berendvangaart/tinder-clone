@@ -6,6 +6,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 
+/**
+ * todo - form validation
+ * todo - default img
+ * todo - add img icon
+ */
 const Onboarding = () => {
     const [image, setImage] = useState(null);
 
@@ -21,20 +26,39 @@ const Onboarding = () => {
         if (!result.canceled) {
             setImage(result.assets[0].uri);
         }
+
+        alert(result.assets[0].uri)
     };
 
     return (
         <View style={styles.componentContainer}>
             <Text style={styles.title}>Profile details</Text>
 
-            {/*<Pressable style={styles.button}>*/}
-            {/*    <Text style={styles.buttonText}>Sign in</Text>*/}
-            {/*</Pressable>*/}
+            <View style={styles.imgContainer}>
+                <Button title="Pick an image" onPress={pickImage}/>
+                {image ? <Image source={{uri: image}} style={styles.img}/> : <Image source={require('../assets/photo.png')} style={styles.img}/>}
+            </View>
 
-             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button title="Pick an image from camera roll" onPress={pickImage} />
-            {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
-        </View>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    // value={text}
+                    //onChange={onChangeText}
+                />
+                <TextInput
+                    style={styles.input}
+                    // value={text}
+                />
+
+                <TextInput
+                    style={styles.bioInput}
+                    // value={text}
+                />
+            </View>
+
+            <Pressable style={styles.button}>
+                <Text style={styles.buttonText}>Continue</Text>
+            </Pressable>
 
         </View>
     );
@@ -49,6 +73,19 @@ const styles = StyleSheet.create({
     title: {
       ...defaultStyles.title,
       marginTop: 70,
+    },
+    imgContainer: {
+        width: '100%',
+        alignItems: "center",
+    },
+    img: {
+        width: 100,
+        height: 100,
+        borderRadius: 25,
+    },
+    bioInput : {
+        ...defaultStyles.input,
+        height: 140
     }
 
 
