@@ -5,7 +5,6 @@ import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
 
 
-
 /**
  * todo - form validation
  * todo - default img
@@ -36,7 +35,8 @@ const Onboarding = () => {
 
             <View style={styles.imgContainer}>
                 <Button title="Pick an image" onPress={pickImage}/>
-                {image ? <Image source={{uri: image}} style={styles.img}/> : <Image source={require('../assets/photo.png')} style={styles.img}/>}
+                {image ? <Image source={{uri: image}} style={styles.img}/> :
+                    <Image source={require('../assets/photo.png')} style={styles.img}/>}
             </View>
 
             <View style={styles.inputContainer}>
@@ -56,6 +56,10 @@ const Onboarding = () => {
                 />
             </View>
 
+            <View style={styles.imgContainer}>
+                <Image style={styles.dots} source={require('../assets/dots-left.png')} alt=""/>
+            </View>
+
             <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>Continue</Text>
             </Pressable>
@@ -71,8 +75,8 @@ export default Onboarding;
 const styles = StyleSheet.create({
     ...defaultStyles,
     title: {
-      ...defaultStyles.title,
-      marginTop: 70,
+        ...defaultStyles.title,
+        marginTop: 70,
     },
     imgContainer: {
         width: '100%',
@@ -83,9 +87,16 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 25,
     },
-    bioInput : {
+    bioInput: {
         ...defaultStyles.input,
         height: 140
+    },
+    dots: {
+        marginTop: 25
+    },
+    button: {
+        ...defaultStyles.button,
+        marginTop: 10
     }
 
 
