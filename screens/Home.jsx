@@ -2,8 +2,9 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-const Home = () => {
+const Home = ({navigation}) => {
     function onPressLearnMore() {
+        navigation.na
         console.log("clicked!")
     }
 
@@ -13,7 +14,7 @@ const Home = () => {
             <Text style={styles.title}>Discover</Text>
             <Text>Discover new professionals, match up and</Text>
             <Text>collaborate together</Text>
-            <Pressable style={styles.button} onPress={onPressLearnMore}>
+            <Pressable style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
                 <Text style={styles.buttonText}>Create an account</Text>
             </Pressable>
             <Text>Already have an account? <Text style={styles.span}> Sign In</Text></Text>
