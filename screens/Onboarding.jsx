@@ -98,6 +98,4 @@ const styles = StyleSheet.create({
         ...defaultStyles.button,
         marginTop: 10
     }
-
-
 });

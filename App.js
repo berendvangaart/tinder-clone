@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Onboarding from "./screens/Onboarding";
+import ProfileDetail from "./screens/ProfileDetail";
 
 
 export default function App() {
@@ -9,7 +10,8 @@ export default function App() {
     <View style={styles.container}>
       {/*<Home/>*/}
       {/*<Login/>*/}
-      <Onboarding/>
+      {/*<Onboarding/>*/}
+      <ProfileDetail/>
 
     </View>
   );
