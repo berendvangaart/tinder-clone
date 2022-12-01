@@ -3,10 +3,6 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 const Home = ({navigation}) => {
-    function onPressLearnMore() {
-        //navigation.navigate()
-        console.log("clicked!")
-    }
 
     return (
         <View style={styles.container}>

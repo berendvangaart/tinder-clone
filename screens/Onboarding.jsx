@@ -3,6 +3,7 @@ import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
+import FormField from "../Components/form-field/FormField";
 
 
 /**
@@ -26,7 +27,6 @@ const Onboarding = ({navigation}) => {
             setImage(result.assets[0].uri);
         }
 
-        alert(result.assets[0].uri)
     };
 
     return (
@@ -40,20 +40,10 @@ const Onboarding = ({navigation}) => {
             </View>
 
             <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                    //onChange={onChangeText}
-                />
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                />
+                <FormField title={'first name'} />
+                <FormField title={'last name'} />
+                <FormField title={'bio'} />
 
-                <TextInput
-                    style={styles.bioInput}
-                    // value={text}
-                />
             </View>
 
             <View style={styles.imgContainer}>
@@ -63,7 +53,6 @@ const Onboarding = ({navigation}) => {
             <Pressable style={styles.button} onPress={() => navigation.navigate('Profile-detail')}>
                 <Text style={styles.buttonText}>Continue</Text>
             </Pressable>
-
         </View>
     );
 

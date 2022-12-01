@@ -2,36 +2,20 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
+import FormField from "../Components/form-field/FormField";
 
 const ProfileDetail = ({navigation}) => {
     return (
         <View style={styles.componentContainer}>
+
             <Text style={styles.title}>Profile details</Text>
 
             <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                    // onChange={onChangeText}
-                />
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                />
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                />
-                <TextInput
-                    style={styles.input}
-                    // value={text}
-                />
-
-                <TextInput
-                    style={styles.input}
-                    placeholder={'test'}
-                    // value={text}
-                />
+                <FormField title={'Password'} />
+                <FormField title={'email'} />
+                <FormField title={'Linkedin'} />
+                <FormField title={'GitHub'} />
+                <FormField title={'Phone'} />
             </View>
 
             <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>

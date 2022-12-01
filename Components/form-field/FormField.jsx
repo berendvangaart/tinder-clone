@@ -8,11 +8,20 @@ const FormField = ({title, placeholder = ''}) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{title}</Text></View>
 
+        {title === 'bio' ? (
+            <TextInput
+                style={styles.bio}
+                value={text}
+                onChange={onChangeText}
+            />
+        ) : (
             <TextInput
                 style={styles.input}
                 value={text}
                 onChange={onChangeText}
             />
+        )}
+
         </View>);
 };
 
@@ -49,5 +58,14 @@ const styles = StyleSheet.create({
         padding: 10,
         color: '#5F5F5F',
         borderColor: '#e81616',
+    }, bio : {
+        height: 140,
+        marginTop: 25,
+        width: 325,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: '#999999',
+        color: '#5F5F5F',
+        padding: 10,
     }
 })
