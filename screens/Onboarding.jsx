@@ -10,7 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
  * todo - default img
  * todo - add img icon
  */
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
     const [image, setImage] = useState(null);
 
     const pickImage = async () => {
@@ -60,7 +60,7 @@ const Onboarding = () => {
                 <Image style={styles.dots} source={require('../assets/dots-left.png')} alt=""/>
             </View>
 
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => navigation.navigate('Profile-detail')}>
                 <Text style={styles.buttonText}>Continue</Text>
             </Pressable>
 

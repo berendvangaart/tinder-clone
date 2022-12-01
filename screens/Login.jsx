@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-const Login = () => {
+const Login = ({navigation}) => {
     const [text, onChangeText] = useState("example");
 
     return (
@@ -21,7 +21,7 @@ const Login = () => {
                 />
             </View>
 
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
                 <Text style={styles.buttonText}>Sign in</Text>
             </Pressable>
 

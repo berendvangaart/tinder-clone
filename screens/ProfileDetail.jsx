@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 
-const ProfileDetail = () => {
+const ProfileDetail = ({navigation}) => {
     return (
         <View style={styles.componentContainer}>
             <Text style={styles.title}>Profile details</Text>
@@ -34,7 +34,7 @@ const ProfileDetail = () => {
                 />
             </View>
 
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
                 <Text style={styles.buttonText}>Sign in</Text>
             </Pressable>
 

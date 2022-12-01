@@ -17,7 +17,7 @@ const Home = ({navigation}) => {
             <Pressable style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
                 <Text style={styles.buttonText}>Create an account</Text>
             </Pressable>
-            <Text>Already have an account? <Text style={styles.span}> Sign In</Text></Text>
+            <Text onPress={() => navigation.navigate('Login')}>Already have an account? <Text style={styles.span}> Sign In</Text></Text>
         </View>
     );
 };
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         color: "#E94057",
         fontWeight: "500",
         margin: 40
-
     },
     button: {
         alignItems: 'center',
