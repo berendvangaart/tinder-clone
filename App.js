@@ -16,7 +16,9 @@ export default function App() {
     return (
         // <View style={styles.container}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Swipe" >
+                <Stack.Navigator initialRouteName="Home" screenOptions={{
+                    headerShown: false
+                }} >
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="Login" component={Login}/>
                     <Stack.Screen name="Onboarding" component={Onboarding}/>

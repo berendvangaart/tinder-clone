@@ -4,7 +4,7 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 const Home = ({navigation}) => {
     function onPressLearnMore() {
-        navigation.na
+        //navigation.navigate()
         console.log("clicked!")
     }
 
