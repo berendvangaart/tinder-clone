@@ -27,7 +27,6 @@ export default Login;
 
 const styles = StyleSheet.create({
     componentContainer: {
-        marginTop: 40,
         flex: 1,
         width: '100%',
         backgroundColor: '#fff',

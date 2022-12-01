@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Image, StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import FormField from "../Components/form-field/FormField";
@@ -16,6 +16,10 @@ const ProfileDetail = ({navigation}) => {
                 <FormField title={'Linkedin'} />
                 <FormField title={'GitHub'} />
                 <FormField title={'Phone'} />
+            </View>
+
+            <View style={styles.imgContainer}>
+                <Image style={styles.dots} source={require('../assets/dots-right.png')} alt=""/>
             </View>
 
             <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
