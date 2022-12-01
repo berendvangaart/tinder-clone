@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import FormField from "../Components/form-field/FormField";
+
 
 const Login = ({navigation}) => {
     const [text, onChangeText] = useState("example");
@@ -15,10 +17,8 @@ const Login = ({navigation}) => {
                     value={text}
                     onChange={onChangeText}
                 />
-                <TextInput
-                    style={styles.input}
-                    value={text}
-                />
+                <FormField title={'password'} placeholder={'this is the placeholer'}/>
+
             </View>
 
             <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
