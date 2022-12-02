@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ImageBackground, Text, View} from "react-native";
 import TinderCard from 'react-tinder-card';
+import Card from "../Components/card/Card";
 
 const mockData = [
     {
@@ -43,16 +44,14 @@ const Swipe = () => {
             <View style={styles.cardContainer}>
                 {people.map((character) =>
 
-                    <TinderCard key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
-                        <View style={styles.card}>
-                            <ImageBackground style={styles.cardImage} source={character.img}>
-                                <Text style={styles.cardTitle}>{character.name}</Text>
-                            </ImageBackground>
-                        </View>
+                    <TinderCard key={character.name} onSwipe={(dir) => swiped(dir, character.name)}
+                                onCardLeftScreen={() => outOfFrame(character.name)}>
+                        <Card character={character}/>
                     </TinderCard>
                 )}
             </View>
-            {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> : <Text style={styles.infoText} />}
+            {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> :
+                <Text style={styles.infoText}/>}
         </View>
     )
 };
@@ -71,27 +70,6 @@ const styles = {
         width: '90%',
         maxWidth: 260,
         height: 300,
-    },
-    card: {
-        position: 'absolute',
-        backgroundColor: '#fff',
-        width: '100%',
-        maxWidth: 260,
-        height: 300,
-        borderRadius: 20,
-        resizeMode: 'cover',
-    },
-    cardImage: {
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        borderRadius: 20,
-    },
-    cardTitle: {
-        position: 'absolute',
-        bottom: 0,
-        margin: 10,
-        color: '#fff',
     },
     infoText: {
         height: 28,
