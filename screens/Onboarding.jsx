@@ -5,7 +5,6 @@ import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
 import FormField from "../Components/form-field/FormField";
 
-
 /**
  * todo - form validation
  * todo - default img

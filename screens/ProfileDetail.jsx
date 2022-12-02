@@ -14,7 +14,7 @@ const ProfileDetail = ({navigation}) => {
                 <FormField title={'Password'} />
                 <FormField title={'email'} />
                 <FormField title={'Linkedin'} />
-                <FormField title={'GitHub'} />
+                <FormField title={'Job title'} />
                 <FormField title={'Phone'} />
             </View>
 
@@ -23,7 +23,7 @@ const ProfileDetail = ({navigation}) => {
             </View>
 
             <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
-                <Text style={styles.buttonText}>Sign in</Text>
+                <Text style={styles.buttonText}>Sign inn</Text>
             </Pressable>
 
         </View>
@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     dots: {
-        marginTop: 25
+        marginTop: 55
     },
     button: {
         ...defaultStyles.button,
-        marginTop: 50
+        marginTop: 12
     }
 });
