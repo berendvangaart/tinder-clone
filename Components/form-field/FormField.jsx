@@ -21,7 +21,6 @@ const FormField = ({title, placeholder = ''}) => {
                 onChange={onChangeText}
             />
         )}
-
         </View>);
 };
 

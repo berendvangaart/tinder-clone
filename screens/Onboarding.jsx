@@ -4,6 +4,7 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
 import FormField from "../Components/form-field/FormField";
+import {SET_FIRS_NAME} from "../store/profile-details/profileDetails.types";
 
 /**
  * todo - form validation
@@ -12,6 +13,7 @@ import FormField from "../Components/form-field/FormField";
  */
 const Onboarding = ({navigation}) => {
     const [image, setImage] = useState(null);
+    const [firstName, setFirstName] = useState(null);
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -39,7 +41,7 @@ const Onboarding = ({navigation}) => {
             </View>
 
             <View style={styles.inputContainer}>
-                <FormField title={'first name'} />
+                <FormField title={'first name'} type={SET_FIRS_NAME} />
                 <FormField title={'last name'} />
                 <FormField title={'bio'} />
 
