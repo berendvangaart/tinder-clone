@@ -1,11 +1,18 @@
 import React from 'react';
 import {ImageBackground, Text, View} from "react-native";
 
+/**
+ * For future development: add gradient to cardInfoContainer background
+ */
 const Card = ({character}) => {
     return (
         <View style={styles.card}>
             <ImageBackground style={styles.cardImage} source={character.img}>
-                <Text style={styles.cardTitle}>{character.name}</Text>
+                <View style={styles.cardInfoContainer}>
+                    <Text style={styles.name}>{character.name}</Text>
+                    <Text style={styles.jobTitle}>{character.jobTitle}</Text>
+                </View>
+
             </ImageBackground>
         </View>
     );
@@ -19,8 +26,8 @@ const styles = {
         position: 'absolute',
         backgroundColor: '#fff',
         width: '100%',
-        maxWidth: 260,
-        height: 300,
+        maxWidth: 350,
+        height: 450,
         borderRadius: 20,
         resizeMode: 'cover',
     },
@@ -30,10 +37,24 @@ const styles = {
         overflow: 'hidden',
         borderRadius: 20,
     },
-    cardTitle: {
+    cardInfoContainer: {
         position: 'absolute',
+        backgroundColor: '#1e1e1e',
+        opacity: 0.93,
+        width: '100%',
+        height: 92,
         bottom: 0,
+    },
+    name : {
+        marginTop: 10,
+        marginLeft: 14,
+        fontWeight: '400',
+        fontSize: 26,
+        color: '#fff',
+    },
+    jobTitle: {
         margin: 10,
+        marginLeft: 14,
         color: '#fff',
     },
     infoText: {

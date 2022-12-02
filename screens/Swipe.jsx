@@ -6,23 +6,28 @@ import Card from "../Components/card/Card";
 const mockData = [
     {
         name: 'Richard Hendricks',
-        img: require('../assets/img/richard.jpg')
+        img: require('../assets/img/richard.jpg'),
+        jobTitle: 'UX-designer'
     },
     {
         name: 'Erlich Bachman',
-        img: require('../assets/img/erlich.jpg')
+        img: require('../assets/img/erlich.jpg'),
+        jobTitle: 'UX-designer'
     },
     {
         name: 'Monica Hall',
-        img: require('../assets/img/monica.jpg')
+        img: require('../assets/img/monica.jpg'),
+        jobTitle: 'UX-designer'
     },
     {
         name: 'Jared Dunn',
-        img: require('../assets/img/jared.jpg')
+        img: require('../assets/img/jared.jpg'),
+        jobTitle: 'UX-designer'
     },
     {
         name: 'Dinesh Chugtai',
-        img: require('../assets/img/dinesh.jpg')
+        img: require('../assets/img/dinesh.jpg'),
+        jobTitle: 'UX-designer'
     }
 ]
 
@@ -68,7 +73,7 @@ const styles = {
     cardContainer: {
         margin: 100,
         width: '90%',
-        maxWidth: 260,
+        maxWidth: 320,
         height: 300,
     },
     infoText: {
