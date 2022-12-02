@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {ImageBackground, Text, View} from "react-native";
+import {Image, Pressable, Text, View} from "react-native";
 import TinderCard from 'react-tinder-card';
 import Card from "../Components/card/Card";
+import {defaultStyles} from "../styles";
 
 const mockData = [
     {
@@ -31,7 +32,7 @@ const mockData = [
     }
 ]
 
-const Swipe = () => {
+const Swipe = ({navigation}) => {
     const people = mockData
     const [lastDirection, setLastDirection] = useState()
 
@@ -45,11 +46,20 @@ const Swipe = () => {
     }
 
     return (
+        <>
+
+            <View style={styles.header}>
+                <Text style={styles.title}>Discover</Text>
+                <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Home')} >
+                    <Image style={styles.icon} source={require('../assets/matchIcon.png')} alt=""/>
+                </Pressable>
+
+            </View>
         <View style={styles.container}>
             <View style={styles.cardContainer}>
-                {people.map((character) =>
+                {people.map((character, index) =>
 
-                    <TinderCard key={character.name} onSwipe={(dir) => swiped(dir, character.name)}
+                    <TinderCard key={index} onSwipe={(dir) => swiped(dir, character.name)}
                                 onCardLeftScreen={() => outOfFrame(character.name)}>
                         <Card character={character}/>
                     </TinderCard>
@@ -58,12 +68,38 @@ const Swipe = () => {
             {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> :
                 <Text style={styles.infoText}/>}
         </View>
+        </>
     )
 };
 
 export default Swipe;
 
 const styles = {
+    ...defaultStyles,
+    header : {
+        marginTop: 80,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+
+    },
+    IconContainer: {
+        height: 54,
+        width: 54,
+
+        marginRight: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: '#999999',
+    },
+
+    icon : {
+        height: 22,
+        width: 22,
+
+    },
     container: {
         display: 'flex',
         alignItems: 'center',
