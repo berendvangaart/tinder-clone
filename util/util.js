@@ -15,4 +15,11 @@ export const profileDetailValidation = (password, email, linkedIn, JobTitle) => 
     return invalidFields
 }
 
+export const loginValidation = (email, password) => {
+    let invalidFields = []
+    if (password.length < 1) invalidFields.push('password')
+    if (email.length < 1) invalidFields.push('email')
+    return invalidFields
+
+}
 

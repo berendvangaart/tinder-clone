@@ -15,7 +15,7 @@ const Onboarding = ({navigation}) => {
     const [image, setImage] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastname] = useState('');
-    const [bio, setBio] = useState(null);
+    const [bio, setBio] = useState('');
     const [checked, setChecked] = useState(false)
 
     const pickImage = async () => {

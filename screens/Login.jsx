@@ -2,20 +2,32 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import FormField from "../Components/form-field/FormField";
+import {loginValidation, onboardingValidation} from "../util/util";
 
 const Login = ({navigation}) => {
-    const [text, onChangeText] = useState("example");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [checked, setChecked] = useState(false)
+
+
+    const handleSubmit = () => {
+        setChecked(true)
+        if (loginValidation(email, password).length === 0) navigation.navigate('Swipe')
+    }
+
 
     return (
         <View style={styles.componentContainer}>
             <Text style={styles.title}>Sign in</Text>
 
             <View style={styles.inputContainer}>
-                <FormField title={'e-mail'} />
-                <FormField title={'password'} />
+                <FormField title={'e-mail'} handleChange={setEmail} text={email}
+                valid={!checked || (checked && !loginValidation(email, password).includes('email'))}/>
+                <FormField title={'password'} handleChange={setPassword} text={password}
+                valid={!checked || (checked && !loginValidation(email, password).includes('password'))}/>
             </View>
 
-            <Pressable style={styles.button} onPress={() => navigation.navigate('Swipe')}>
+            <Pressable style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Sign in</Text>
             </Pressable>
 
