@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Image, StyleSheet, Text, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
 import FormField from "../Components/form-field/FormField";
-import {SET_FIRS_NAME} from "../store/profile-details/profileDetails.types";
+import {onboardingValidation} from "../util/util";
 
 /**
  * todo - form validation
@@ -13,7 +13,10 @@ import {SET_FIRS_NAME} from "../store/profile-details/profileDetails.types";
  */
 const Onboarding = ({navigation}) => {
     const [image, setImage] = useState(null);
-    const [firstName, setFirstName] = useState(null);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastname] = useState('');
+    const [bio, setBio] = useState(null);
+    const [checked, setChecked] = useState(false)
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -27,8 +30,12 @@ const Onboarding = ({navigation}) => {
         if (!result.canceled) {
             setImage(result.assets[0].uri);
         }
-
     };
+
+    const handleSubmit = () => {
+        setChecked(true)
+        if (onboardingValidation(firstName, lastName).length === 0) navigation.navigate('Profile-detail')
+    }
 
     return (
         <View style={styles.componentContainer}>
@@ -41,17 +48,19 @@ const Onboarding = ({navigation}) => {
             </View>
 
             <View style={styles.inputContainer}>
-                <FormField title={'first name'} type={SET_FIRS_NAME} />
-                <FormField title={'last name'} />
-                <FormField title={'bio'} />
+                <FormField title={'first name'} text={firstName} handleChange={setFirstName}
+                           valid={!checked || (checked && !onboardingValidation(firstName, lastName).includes('firstName'))}/>
 
+                <FormField title={'last name'} text={lastName} handleChange={setLastname}
+                           valid={!checked || (checked && !onboardingValidation(firstName, lastName).includes('lastName'))}/>
+                <FormField title={'bio'} text={bio} handleChange={setBio}/>
             </View>
 
             <View style={styles.imgContainer}>
                 <Image style={styles.dots} source={require('../assets/dots-left.png')} alt=""/>
             </View>
 
-            <Pressable style={styles.button} onPress={() => navigation.navigate('Profile-detail')}>
+            <Pressable style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Continue</Text>
             </Pressable>
         </View>

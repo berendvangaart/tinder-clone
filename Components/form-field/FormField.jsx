@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {TextInput, StyleSheet, View, Text} from "react-native";
 
-const FormField = ({title, placeholder = ''}) => {
-    const [text, onChangeText] = useState(placeholder);
+const FormField = ({title, placeholder = '', handleChange, text = '', valid = true}) => {
 
     return (<View>
             <View style={styles.titleContainer}>
@@ -12,13 +11,13 @@ const FormField = ({title, placeholder = ''}) => {
             <TextInput
                 style={styles.bio}
                 value={text}
-                onChange={onChangeText}
+                onChange={handleChange}
             />
         ) : (
             <TextInput
-                style={styles.input}
+                style={ valid ? styles.input : styles.inputInvalid}
                 value={text}
-                onChange={onChangeText}
+                onChange={handleChange}
             />
         )}
         </View>);
