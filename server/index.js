@@ -8,7 +8,6 @@ const {v4: uuidv4} = require('uuid')
 const bcrypt = require("bcrypt");
 const cors = require('cors')
 
-
 const app = express()
 
 app.use(cors())
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
 
 /**
  * create a new user
- * hash passwords create unique id - persist in db
+ * hash passwords create unique id - persist in db - issue JWT
  */
 app.post('/signup', async (req, res) => {
     const client = new MongoClient(URI)
@@ -65,9 +64,43 @@ app.post('/signup', async (req, res) => {
     } finally {
         await client.close()
     }
-
 })
 
+/**
+ *
+ */
+app.post('/login', async (req, res) => {
+
+    const client = new MongoClient(URI)
+    const {email, password} = req.body
+
+    try {
+        await client.connect()
+        const db = client.db('app')
+        const users = db.collection('users')
+
+        const user = await users.findOne({email: email.toLowerCase()})
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            const token = jwt.sign(user, user.email, {
+                expiresIn: 60 * 24,
+            })
+            res.status(201).json({token, userId: user.id, email: email.toLowerCase()})
+        } else {
+            res.status(400).send('bad credentials')
+        }
+
+
+    } catch (e) {
+        console.error('error login', e)
+    } finally {
+        await client.close()
+    }
+})
+
+/**
+ * return all users
+ */
 app.get('/users', async (req, res) => {
     const client = new MongoClient(URI)
 
@@ -83,6 +116,5 @@ app.get('/users', async (req, res) => {
         await client.close()
     }
 })
-
 
 app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))
