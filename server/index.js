@@ -117,4 +117,30 @@ app.get('/users', async (req, res) => {
     }
 })
 
+
+app.post('/match', async (req, res) => {
+    const client = new MongoClient(URI)
+
+    const {userId, matchId} = req.body
+
+    try {
+        await client.connect()
+        const db = client.db('app')
+        const users = db.collection('users')
+
+        const query = {Id: userId}
+        const updateDocument = {
+            $push: {matches: {userId: matchId} }
+        }
+
+         // const user = await users.updateOne(query, updateDocument)
+        const user = await users.updateOne({id: userId }, {$push : {matches: matchId}})
+        res.send(user)
+    } catch (e) {
+        console.error('error fetch users', e)
+    } finally {
+        await client.close()
+    }
+})
+
 app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))
