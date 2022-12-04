@@ -1,9 +1,10 @@
 const express = require('express')
 const PORT = 8080
 const {MongoClient} = require('mongodb')
+const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const URI = `mongodb+srv://berend:${process.env.MONGO_KEY}@cluster0.6cnzvon.mongodb.net/?retryWrites=true&w=majority`
-const { v4: uuidv4 } = require( 'uuid')
+const {v4: uuidv4} = require('uuid')
 const bcrypt = require("bcrypt");
 const cors = require('cors')
 
@@ -25,13 +26,12 @@ app.get('/', (req, res) => {
 app.post('/signup', async (req, res) => {
     const client = new MongoClient(URI)
 
-    console.log(req.body)
-
-    const userRequestBody = await req.body
+    const userRequestBody = req.body
     const hashedPassword = await bcrypt.hash(userRequestBody.password, 10)
+    const uid = uuidv4()
 
     const user = {
-        id: uuidv4(),
+        id: uid,
         img: userRequestBody.img,
         firstName: userRequestBody.firstName,
         lastName: userRequestBody.lastName,
@@ -44,20 +44,24 @@ app.post('/signup', async (req, res) => {
     }
 
     try {
-
         await client.connect()
         const db = client.db('app')
         const users = db.collection('users')
 
-        const exists = users.findOne({email : userRequestBody.email.toLowerCase()})
-        console.log(exists)
-
-        // if (exists) return res.status(409).send('user already exists.')
+        // check if user exists
+        const exists = await users.findOne({email: userRequestBody.email.toLowerCase()})
+        if (exists) return res.status(409).send('user already exists.')
 
         const insertedUser = await users.insertOne(user)
 
-        console.log(insertedUser)
+        const token = jwt.sign(insertedUser, user.email, {
+            expiresIn: 60 * 24,
+        })
 
+        res.status(201).json({token, userId: uid, email: userRequestBody.email.toLowerCase()})
+
+    } catch (e) {
+        console.error('something went wrong: ', e)
     } finally {
         await client.close()
     }
@@ -81,4 +85,4 @@ app.get('/users', async (req, res) => {
 })
 
 
-app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀 ${process.env.MONGO_KEY}`))
+app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))
