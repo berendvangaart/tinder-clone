@@ -1,35 +1,37 @@
-import {SET_BIO, SET_FIRS_NAME, SET_LAST_NAME, SET_PHOTO} from "./profileDetails.types";
+import {SET_DETAIL_PAGE, SET_PROFILE} from "./profileDetails.types";
 
 const INITIAL_STATE = {
     image: null,
     firstName: '',
     lastName: '',
     bio: '',
+    password: '',
+    email: '',
+    linkedin: '',
+    jobTitle: '',
+    phone: ''
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
 
     switch (action.type) {
-        case SET_FIRS_NAME:
+        case SET_DETAIL_PAGE:
             return {
                 ...state,
-                firstName: action.payload,
+                image: action.payload.img,
+                bio: action.payload.bio,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
             };
-        case SET_LAST_NAME:
+        case SET_PROFILE:
             return {
                 ...state,
-                lastName: action.payload,
-            };
-        case SET_BIO:
-            return {
-                ...state,
-                bio: action.payload,
-            };
-        case SET_PHOTO:
-            return {
-                ...state,
-                image: action.payload,
-            };
+                password: action.payload.password,
+                email: action.payload.email,
+                linkedin: action.payload.linkedin,
+                jobTitle: action.payload.jobTitle,
+                phone: action.payload.phone
+            }
         default:
             return state;
     }
