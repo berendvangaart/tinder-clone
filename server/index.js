@@ -41,7 +41,6 @@ app.post('/signup', async (req, res) => {
         jobTitle: userRequestBody.jobTitle,
         matches: []
     }
-
     try {
         await client.connect()
         const db = client.db('app')
@@ -118,6 +117,7 @@ app.get('/users', async (req, res) => {
 })
 
 
+
 app.post('/match', async (req, res) => {
     const client = new MongoClient(URI)
 
@@ -142,5 +142,8 @@ app.post('/match', async (req, res) => {
         await client.close()
     }
 })
+
+
+
 
 app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))

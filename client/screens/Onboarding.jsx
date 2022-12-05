@@ -5,6 +5,8 @@ import {defaultStyles} from "../styles";
 import * as ImagePicker from 'expo-image-picker';
 import FormField from "../Components/form-field/FormField";
 import {onboardingValidation} from "../util/util";
+import {useDispatch, useSelector} from "react-redux";
+import {inputFormValue} from "../store/profile-details/profileDetails.actions";
 
 /**
  * todo - form validation
@@ -17,6 +19,8 @@ const Onboarding = ({navigation}) => {
     const [lastName, setLastname] = useState('');
     const [bio, setBio] = useState('');
     const [checked, setChecked] = useState(false)
+    const dispatch = useDispatch()
+
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -34,7 +38,10 @@ const Onboarding = ({navigation}) => {
 
     const handleSubmit = () => {
         setChecked(true)
-        if (onboardingValidation(firstName, lastName).length === 0) navigation.navigate('Profile-detail')
+        if (onboardingValidation(firstName, lastName).length === 0) {
+            dispatch(inputFormValue({img: image, firstName: firstName, lastName: lastName, bio: bio}))
+            navigation.navigate('Profile-detail')
+        }
     }
 
     return (
