@@ -2,17 +2,40 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import FormField from "../Components/form-field/FormField";
-import {loginValidation, onboardingValidation} from "../util/util";
+import {loginValidation} from "../util/util";
+import axios from 'axios';
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false)
+    const [loading, setLoading] = useState(false)
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setChecked(true)
-        if (loginValidation(email, password).length === 0) navigation.navigate('Swipe')
+
+        if (loginValidation(email, password).length === 0) {
+            setLoading(true)
+
+            try {
+                const response = await axios({
+                    method: 'POST',
+                    url: 'http://localhost:8080/login',
+                    headers: {'Content-Type': 'application/json'},
+                    data: {
+                        "email" : email,
+                        "password" : password
+                    }
+                });
+
+                if (response.status === 201) navigation.navigate('Swipe') // navigate tp swipe screen
+
+            } catch (err)  {
+                console.log(err)
+            }
+            setLoading(false)
+        }
     }
 
 
@@ -28,7 +51,7 @@ const Login = ({navigation}) => {
             </View>
 
             <Pressable style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Sign in</Text>
+                <Text style={styles.buttonText}>{loading? 'loading...' : 'Sign in'}</Text>
             </Pressable>
 
         </View>

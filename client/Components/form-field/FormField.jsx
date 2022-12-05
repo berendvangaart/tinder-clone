@@ -11,13 +11,13 @@ const FormField = ({title, placeholder = '', handleChange, text = '', valid = tr
             <TextInput
                 style={styles.bio}
                 value={text}
-                onChange={handleChange}
+                onChangeText={handleChange}
             />
         ) : (
             <TextInput
                 style={ valid ? styles.input : styles.inputInvalid}
                 value={text}
-                onChange={handleChange}
+                onChangeText={handleChange}
             />
         )}
         </View>);
