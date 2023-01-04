@@ -4,12 +4,16 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import FormField from "../Components/form-field/FormField";
 import {loginValidation} from "../util/util";
 import axios from 'axios';
+import {useDispatch} from "react-redux";
+import {setUser} from "../store/user/user.actions";
+
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false)
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
 
     const handleSubmit = async () => {
@@ -29,7 +33,10 @@ const Login = ({navigation}) => {
                     }
                 });
 
-                if (response.status === 201) navigation.navigate('Swipe') // navigate tp swipe screen
+                if (response.status === 201) {
+                    dispatch(setUser(response))
+                    navigation.navigate('Swipe') // navigate tp swipe screen
+                }
 
             } catch (err)  {
                 console.log(err)

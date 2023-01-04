@@ -91,7 +91,7 @@ app.post('/login', async (req, res) => {
             const token = jwt.sign(user, user.email, {
                 expiresIn: 60 * 24,
             })
-            res.status(201).json({token, userId: user.id, email: email.toLowerCase()})
+            res.status(201).json({token, userId: user.id, email: email.toLowerCase(), matches: user.matches})
         } else {
             res.status(400).send('bad credentials')
         }
