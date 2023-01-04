@@ -2,6 +2,36 @@ import React from 'react';
 import {defaultStyles} from "../styles";
 import {Image, Pressable, Text, View} from "react-native";
 import {Divider} from "@react-native-material/core";
+import MatchCard from "../Components/match-card/MatchCard";
+
+
+const db = [
+    {
+        name: 'Richard',
+        img: require('../assets/img/richard.jpg'),
+        jobTitle: 'UX-designer'
+    },
+    {
+        name: 'Erlich',
+        img: require('../assets/img/erlich.jpg'),
+        jobTitle: 'UX-designer'
+    },
+    {
+        name: 'Monica',
+        img: require('../assets/img/monica.jpg'),
+        jobTitle: 'UX-designer'
+    },
+    {
+        name: 'Jared',
+        img: require('../assets/img/jared.jpg'),
+        jobTitle: 'UX-designer'
+    },
+    {
+        name: 'Dinesh',
+        img: require('../assets/img/dinesh.jpg'),
+        jobTitle: 'UX-designer'
+    }
+]
 
 const Match = ({navigation}) => {
     return (
@@ -14,6 +44,8 @@ const Match = ({navigation}) => {
                 </Pressable>
             </View>
             <Divider style={{ marginTop: 60 }} leadingInset={32}  trailingInset={32}/>
+
+            <MatchCard character={db[0]}/>
 
         </View>
     );

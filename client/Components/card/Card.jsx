@@ -4,6 +4,7 @@ import {ImageBackground, Text, View} from "react-native";
 /**
  * For future development: add gradient to cardInfoContainer background
  */
+
 const Card = ({character}) => {
     return (
         <View style={styles.card}>
