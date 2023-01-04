@@ -3,20 +3,27 @@ const PORT = 8080
 const {MongoClient} = require('mongodb')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const URI = `mongodb+srv://berend:${process.env.MONGO_KEY}@cluster0.6cnzvon.mongodb.net/?retryWrites=true&w=majority`
+//const URI = `mongodb+srv://berend:${process.env.MONGO_KEY}@cluster0.6cnzvon.mongodb.net/?retryWrites=true&w=majority`
+const URI = `mongodb://localhost:27017/`
 const {v4: uuidv4} = require('uuid')
 const bcrypt = require("bcrypt");
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
+const multer = require('multer')
+const os = require("os");
+const upload = multer({ dest: os.tmpdir() });
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
 
 
-app.get('/', (req, res) => {
-    res.json('hello server')
-})
 
 /**
  * create a new user

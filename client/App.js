@@ -8,6 +8,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from "react-redux";
 import store from "./store/store";
+import Match from "./screens/Match";
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
                 <Stack.Screen name="Onboarding" component={Onboarding}/>
                 <Stack.Screen name="Profile-detail" component={ProfileDetail}/>
                 <Stack.Screen name="Swipe" component={Swipe}/>
+                <Stack.Screen name="Match" component={Match}/>
             </Stack.Navigator>
         </NavigationContainer>
  </Provider>

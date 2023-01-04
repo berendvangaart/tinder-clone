@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import FormField from "../Components/form-field/FormField";
-import {profileDetailValidation} from "../util/util";
+import {loginValidation, profileDetailValidation} from "../util/util";
 import {useDispatch, useSelector} from "react-redux";
 import {profileDetail} from "../store/profile-details/profileDetails.actions";
 import axios from "axios";

@@ -68,7 +68,7 @@ const Swipe = ({navigation}) => {
 
             <View style={styles.header}>
                 <Text style={styles.title}>Discover</Text>
-                <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Home')}>
+                <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Match')}>
                     <Image style={styles.icon} source={require('../assets/matchIcon.png')} alt=""/>
                 </Pressable>
             </View>
