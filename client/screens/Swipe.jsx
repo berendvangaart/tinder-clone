@@ -3,6 +3,8 @@ import {Image, Pressable, Text, View} from "react-native";
 import TinderCard from 'react-tinder-card';
 import Card from "../Components/card/Card";
 import {defaultStyles} from "../styles";
+import axios from "axios";
+import {useSelector} from "react-redux";
 
 const db = [
     {
@@ -40,14 +42,31 @@ const Swipe = ({navigation}) => {
     const [lastDirection, setLastDirection] = useState()
     const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
+    const state = useSelector(state => state.user)
+
+    const updateMatches = async (matchID) => {
+        const response = await axios({
+            method: 'POST',
+            url: 'http://localhost:8080/match',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                "userId" : state.user.userId,
+                "matchId" : matchID
+            }
+        });
+
+        console.log(response.data)
+    }
+
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete + ' to the ' + direction)
         setLastDirection(direction)
         alreadyRemoved.push(nameToDelete)
+
+        if (direction === "right") updateMatches("328aac51-b4de-4f3e-8f38-8776c58df2ed")
     }
 
     const outOfFrame = (name) => {
-        console.log(name + ' left the screen!')
         charactersState = charactersState.filter(character => character.name !== name)
         setCharacters(charactersState)
     }
@@ -61,6 +80,8 @@ const Swipe = ({navigation}) => {
             alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
             childRefs[index].current.swipe(dir) // Swipe the card!
         }
+
+
     }
 
     return (
