@@ -1,6 +1,6 @@
 import React from 'react';
 import {defaultStyles} from "../styles";
-import {Image, Pressable, Text, View} from "react-native";
+import {Image, Pressable, ScrollView, Text, View} from "react-native";
 import {Divider} from "@react-native-material/core";
 import MatchCard from "../Components/match-card/MatchCard";
 
@@ -40,12 +40,18 @@ const Match = ({navigation}) => {
             <View style={styles.header}>
                 <Text style={styles.title}>Matches</Text>
                 <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Swipe')}>
-                    <Image style={styles.icon} source={require('../assets/matchIcon.png')} alt=""/>
+                    <Image style={styles.icon} source={require('../assets/cards.png')} alt=""/>
                 </Pressable>
             </View>
             <Divider style={{ marginTop: 60 }} leadingInset={32}  trailingInset={32}/>
 
-            <MatchCard character={db[0]}/>
+            <ScrollView >
+
+                <View style={styles.row}>
+                    {db.map((character, index) =>  <MatchCard key={index} character={character}/>)}
+                </View>
+
+            </ScrollView>
 
         </View>
     );
@@ -114,9 +120,15 @@ const styles = {
         borderRadius: 100,
         // borderColor: '#999999',
 
-
     }, btnIcon : {
         height: 30,
         width: 30,
+    },
+    row: {
+        margin: 32,
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+
     }
 }

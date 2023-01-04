@@ -30,6 +30,7 @@ const styles = {
         height: 200,
         borderRadius: 20,
         resizeMode: 'cover',
+        margin: 10
     },
     cardImage: {
         width: '100%',
