@@ -34,7 +34,7 @@ const Login = ({navigation}) => {
                 });
 
                 if (response.status === 201) {
-                    dispatch(setUser(response))
+                    dispatch(setUser(response.data))
                     navigation.navigate('Swipe') // navigate tp swipe screen
                 }
 

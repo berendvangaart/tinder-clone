@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {defaultStyles} from "../styles";
 import {Image, Pressable, ScrollView, Text, View} from "react-native";
 import {Divider} from "@react-native-material/core";
 import MatchCard from "../Components/match-card/MatchCard";
+import {useSelector} from "react-redux";
 
 
 const db = [
@@ -34,6 +35,12 @@ const db = [
 ]
 
 const Match = ({navigation}) => {
+    const state = useSelector(state => state.user)
+
+    useEffect(() => {
+        console.log("hier: ", state)
+    },[])
+
     return (
         <View>
 
