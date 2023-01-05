@@ -12,9 +12,11 @@ const FormField = ({title, placeholder = '', handleChange, text = '', valid = tr
                 style={styles.bio}
                 value={text}
                 onChangeText={handleChange}
+                multiline={true}
             />
         ) : (
             <TextInput
+                secureTextEntry={title === 'password'}
                 style={ valid ? styles.input : styles.inputInvalid}
                 value={text}
                 onChangeText={handleChange}
