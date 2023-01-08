@@ -13,6 +13,8 @@ const FormField = ({title, placeholder = '', handleChange, text = '', valid = tr
                 value={text}
                 onChangeText={handleChange}
                 multiline={true}
+                autoCapitalize='none'
+                autoCorrect={false}
             />
         ) : (
             <TextInput
@@ -20,6 +22,8 @@ const FormField = ({title, placeholder = '', handleChange, text = '', valid = tr
                 style={ valid ? styles.input : styles.inputInvalid}
                 value={text}
                 onChangeText={handleChange}
+                autoCapitalize='none'
+                autoCorrect={false}
             />
         )}
         </View>);
