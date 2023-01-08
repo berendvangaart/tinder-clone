@@ -25,7 +25,7 @@ const Login = ({navigation}) => {
             try {
                 const response = await axios({
                     method: 'POST',
-                    url: 'http://localhost:8080/upload',
+                    url: 'http://localhost:8080/login',
                     headers: {'Content-Type': 'application/json'},
                     data: {
                         "email" : email,

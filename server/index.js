@@ -129,6 +129,28 @@ app.get('/users', async (req, res) => {
     }
 })
 
+app.get('/user', async (req, res) => {
+    const client = new MongoClient(URI)
+    const userId =req.query.userId
+
+    try {
+        await client.connect()
+        const db = client.db('app')
+        const users = db.collection('users')
+
+
+        const query = {id: userId}
+        const user = await users.findOne(query)
+
+         res.send(user)
+    } catch (e) {
+        console.error('error fetch users', e)
+    } finally {
+        await client.close()
+    }
+
+})
+
 
 
 app.post('/match', async (req, res) => {

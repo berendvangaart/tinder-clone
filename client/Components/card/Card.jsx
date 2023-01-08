@@ -1,16 +1,12 @@
 import React from 'react';
 import {ImageBackground, Text, View} from "react-native";
 
-/**
- * For future development: add gradient to cardInfoContainer background
- */
-
 const Card = ({character}) => {
     return (
         <View style={styles.card}>
-            <ImageBackground style={styles.cardImage} source={character.img}>
+            <ImageBackground style={styles.cardImage} source={{ uri: `http://localhost:8080/storage/${character.img}` }}>
                 <View style={styles.cardInfoContainer}>
-                    <Text style={styles.name}>{character.name}</Text>
+                    <Text style={styles.name}>{character.firstName}</Text>
                     <Text style={styles.jobTitle}>{character.jobTitle}</Text>
                 </View>
 
