@@ -1,6 +1,7 @@
 const express = require('express')
 const PORT = 8080
 const {MongoClient} = require('mongodb')
+
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 //const URI = `mongodb+srv://berend:${process.env.MONGO_KEY}@cluster0.6cnzvon.mongodb.net/?retryWrites=true&w=majority`
@@ -8,28 +9,36 @@ const URI = `mongodb://localhost:27017/`
 const {v4: uuidv4} = require('uuid')
 const bcrypt = require("bcrypt");
 const cors = require('cors')
-const fileUpload = require('express-fileupload')
-const multer = require('multer')
-const os = require("os");
-const upload = multer({ dest: os.tmpdir() });
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './storage')
+    },
+    filename: (req, file, cb) => {
+        console.log(file.originalname)
+        cb(null, `${file.originalname}`)
+    }
+})
+const upload = multer({
+    storage: storage,
+    maxFieldSize: 100000000, // 100 MB
+    maxFileSize: 100000000, // 100 MB
+});
 
 const app = express()
-
+app.use(express.static('storage'));
+app.use("/storage", express.static('storage'))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(fileUpload({
-    useTempFiles : true,
-    tempFileDir : '/tmp/'
-}));
-
 
 
 /**
  * create a new user
  * hash passwords create unique id - persist in db - issue JWT
  */
-app.post('/signup', async (req, res) => {
+
+app.post('/signup', upload.single('image'), async (req, res) => {
     const client = new MongoClient(URI)
 
     const userRequestBody = req.body
@@ -38,7 +47,7 @@ app.post('/signup', async (req, res) => {
 
     const user = {
         id: uid,
-        img: userRequestBody.img,
+        img: userRequestBody.imageName,
         firstName: userRequestBody.firstName,
         lastName: userRequestBody.lastName,
         bio: userRequestBody.bio,
@@ -58,11 +67,11 @@ app.post('/signup', async (req, res) => {
         if (exists) return res.status(409).send('user already exists.')
 
         const insertedUser = await users.insertOne(user)
-
         const token = jwt.sign(insertedUser, user.email, {
             expiresIn: 60 * 24,
-        })
+        });
 
+        // Send the response
         res.status(201).json({token, userId: uid, email: userRequestBody.email.toLowerCase()})
 
     } catch (e) {
@@ -72,9 +81,6 @@ app.post('/signup', async (req, res) => {
     }
 })
 
-/**
- *
- */
 app.post('/login', async (req, res) => {
 
     const client = new MongoClient(URI)
@@ -149,8 +155,6 @@ app.post('/match', async (req, res) => {
         await client.close()
     }
 })
-
-
 
 
 app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))

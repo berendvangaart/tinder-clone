@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import {defaultStyles} from "../styles";
 import FormField from "../Components/form-field/FormField";
-import {loginValidation, profileDetailValidation} from "../util/util";
+import { profileDetailValidation} from "../util/util";
 import {useDispatch, useSelector} from "react-redux";
 import {profileDetail} from "../store/profile-details/profileDetails.actions";
 import axios from "axios";
@@ -25,30 +25,36 @@ const ProfileDetail = ({navigation}) => {
             setLoading(true)
             dispatch(profileDetail({password, email, linkedin, jobTitle, phone}))
 
+            const body = new FormData();
+
+            body.append('image', {
+                uri: state.image,
+                name: state.image,
+                type: 'image/jpeg',
+            })
+            body.append('firstName', state.firstName)
+            body.append('lastName', state.lastName)
+            body.append('bio', state.bio)
+            body.append('password', password)
+            body.append('email', email)
+            body.append('linkedin', linkedin)
+            body.append('jobTitle', jobTitle)
+            body.append('imageName', state.image.substring(state.image.indexOf("/ImagePicker/") + 13)) // clean string
+
             try {
-                const response = await axios({
-                    url: `http://localhost:8080/signup`,
-                    method: 'POST',
+
+                const response = await axios.post('http://localhost:8080/signUp', body, {
                     headers: {
-                        'Content-Type': 'application/json'
-                    }, data: {
-                        img: state.image,
-                        firstName: state.firstName,
-                        lastName: state.lastName,
-                        bio: state.bio,
-                        password: password,
-                        email: email,
-                        linkedin: linkedin,
-                        jobTitle: jobTitle,
-                    }
-                })
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
                 if (response.status === 201) navigation.navigate('Swipe')
             } catch (err) {
                 console.log(err)
             }
             setLoading(false)
         }
-
     }
 
     return (
@@ -57,7 +63,7 @@ const ProfileDetail = ({navigation}) => {
             <Text style={styles.title}>Profile details</Text>
 
             <View style={styles.inputContainer}>
-                <FormField title={'Password'} text={password} handleChange={setPassWord}
+                <FormField title={'password'} text={password} handleChange={setPassWord}
                            valid={!checked || (checked && !profileDetailValidation(password, email, linkedin, jobTitle).includes('password'))}/>
                 <FormField title={'email'} text={email} handleChange={setEmail}
                            valid={!checked || (checked && !profileDetailValidation(password, email, linkedin, jobTitle).includes('email'))}/>

@@ -37,10 +37,6 @@ const db = [
 const Match = ({navigation}) => {
     const state = useSelector(state => state.user)
 
-    useEffect(() => {
-        console.log("hier: ", state)
-    },[])
-
     return (
         <View>
 
