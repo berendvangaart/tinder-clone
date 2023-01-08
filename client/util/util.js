@@ -1,3 +1,5 @@
+const linkedInRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/[a-zA-Z0-9-./]+$/;
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 export const onboardingValidation = (firstName, lastName) => {
     let invalidFields = []
@@ -7,10 +9,11 @@ export const onboardingValidation = (firstName, lastName) => {
 }
 
 export const profileDetailValidation = (password, email, linkedIn, JobTitle) => {
+
     let invalidFields = []
     if (password.length < 1) invalidFields.push('password')
-    if (email.length < 1) invalidFields.push('email')
-    if (linkedIn.length < 1) invalidFields.push('linkedin')
+    if (!emailRegex.test(email)) invalidFields.push('email')
+    if (!linkedInRegex.test(linkedIn)) invalidFields.push('linkedin')
     if (JobTitle.length < 1) invalidFields.push('jobTitle')
     return invalidFields
 }
@@ -18,8 +21,7 @@ export const profileDetailValidation = (password, email, linkedIn, JobTitle) => 
 export const loginValidation = (email, password) => {
     let invalidFields = []
     if (password.length < 1) invalidFields.push('password')
-    if (email.length < 1) invalidFields.push('email')
+    if (!emailRegex.test(email)) invalidFields.push('email')
     return invalidFields
-
 }
 
