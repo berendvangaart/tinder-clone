@@ -1,45 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {defaultStyles} from "../styles";
 import {Image, Pressable, ScrollView, Text, View} from "react-native";
 import {Divider} from "@react-native-material/core";
 import MatchCard from "../Components/match-card/MatchCard";
 import {useSelector} from "react-redux";
+import axios from "axios";
 
 
-const db = [
-    {
-        name: 'Richard',
-        img: require('../assets/img/richard.jpg'),
-        jobTitle: 'UX-designer'
-    },
-    {
-        name: 'Erlich',
-        img: require('../assets/img/erlich.jpg'),
-        jobTitle: 'UX-designer'
-    },
-    {
-        name: 'Monica',
-        img: require('../assets/img/monica.jpg'),
-        jobTitle: 'UX-designer'
-    },
-    {
-        name: 'Jared',
-        img: require('../assets/img/jared.jpg'),
-        jobTitle: 'UX-designer'
-    },
-    {
-        name: 'Dinesh',
-        img: require('../assets/img/dinesh.jpg'),
-        jobTitle: 'UX-designer'
-    }
-]
 
 const Match = ({navigation}) => {
     const state = useSelector(state => state.user)
+    const [matches, setMatches] = useState(null)
+
+    const fetchUsers = async () => {
+        const users = await axios({
+            method: 'GET',
+            url: 'http://localhost:8080/users',
+            headers: {'Content-Type': 'application/json'},
+        });
+
+        const match = await users.data.filter(user => {
+            return user.matches.includes(state.user.userId) && state.user.matches.includes(user.id)
+        })
+
+        setMatches(match)
+    }
+
+    useEffect(() => {
+        fetchUsers()
+    }, [])
 
     return (
         <View>
-
             <View style={styles.header}>
                 <Text style={styles.title}>Matches</Text>
                 <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Swipe')}>
@@ -51,7 +43,7 @@ const Match = ({navigation}) => {
             <ScrollView >
 
                 <View style={styles.row}>
-                    {db.map((character, index) =>  <MatchCard key={index} character={character}/>)}
+                    {matches?.map((character, index) =>  <MatchCard key={index} character={character}/>)}
                 </View>
 
             </ScrollView>

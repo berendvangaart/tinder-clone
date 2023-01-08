@@ -1,14 +1,14 @@
 import React from 'react';
-import {Image, ImageBackground, Pressable, Text, View} from "react-native";
+import {Image, ImageBackground, Linking, Pressable, Text, View} from "react-native";
 
 const MatchCard = ({character}) => {
     return (
         <View style={styles.card}>
-            <ImageBackground style={styles.cardImage} source={character.img}>
-                <Text style={styles.name}>{character.name}</Text>
+            <ImageBackground style={styles.cardImage} source={{ uri: `http://localhost:8080/storage/${character.img}` }}>
+                <Text style={styles.name}>{character.firstName}</Text>
 
                 <View style={styles.cardInfoContainer}>
-                    <Pressable style={styles.IconContainer} onPress={() => {}}>
+                    <Pressable style={styles.IconContainer} onPress={() => {Linking.openURL(character.linkedin)}}>
                         <Image  source={require('../../assets/linkedin.png')} alt=""/>
                     </Pressable>
                     <Pressable style={styles.IconContainer} onPress={() => {}}>

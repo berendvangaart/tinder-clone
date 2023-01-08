@@ -1,4 +1,3 @@
-import {StyleSheet, Text, View} from 'react-native';
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Swipe from "./screens/Swipe";
