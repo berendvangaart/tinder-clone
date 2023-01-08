@@ -37,7 +37,6 @@ const Swipe = ({navigation}) => {
     }
 
 
-
     const swiped = (direction, user) => {
         if (direction === "right") updateMatches(user.id)
     }

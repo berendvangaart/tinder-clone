@@ -7,13 +7,13 @@ import { profileDetailValidation} from "../util/util";
 import {useDispatch, useSelector} from "react-redux";
 import {profileDetail} from "../store/profile-details/profileDetails.actions";
 import axios from "axios";
+import {setUser} from "../store/user/user.actions";
 
 const ProfileDetail = ({navigation}) => {
     const [password, setPassWord] = useState('');
     const [email, setEmail] = useState('');
     const [linkedin, setLinkedin] = useState('');
     const [jobTitle, setJobTitle] = useState('');
-    const [phone, setPhone] = useState('');
     const [loading, setLoading] = useState(false);
     const [checked, setChecked] = useState(false)
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const ProfileDetail = ({navigation}) => {
         setChecked(true)
         if (profileDetailValidation(password, email, linkedin, jobTitle).length === 0) {
             setLoading(true)
-            dispatch(profileDetail({password, email, linkedin, jobTitle, phone}))
+            dispatch(profileDetail({password, email, linkedin, jobTitle}))
 
             const body = new FormData();
 
@@ -42,14 +42,17 @@ const ProfileDetail = ({navigation}) => {
             body.append('imageName', state.image.substring(state.image.indexOf("/ImagePicker/") + 13)) // clean string
 
             try {
-
                 const response = await axios.post('http://localhost:8080/signUp', body, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
 
-                if (response.status === 201) navigation.navigate('Swipe')
+                if (response.status === 201) {
+                    console.log(response.data)
+                    dispatch(setUser(response.data))
+                    navigation.navigate('Swipe')
+                }
             } catch (err) {
                 console.log(err)
             }
@@ -71,7 +74,7 @@ const ProfileDetail = ({navigation}) => {
                            valid={!checked || (checked && !profileDetailValidation(password, email, linkedin, jobTitle).includes('linkedin'))}/>
                 <FormField title={'Job title'} text={jobTitle} handleChange={setJobTitle}
                            valid={!checked || (checked && !profileDetailValidation(password, email, linkedin, jobTitle).includes('email'))}/>
-                <FormField title={'Phone'} text={phone} handleChange={setPhone}/>
+                 {/*<FormField title={'Phone'} text={phone} handleChange={setPhone}/>*/}
             </View>
 
             <View style={styles.imgContainer}>
