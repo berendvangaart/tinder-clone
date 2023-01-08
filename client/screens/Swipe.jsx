@@ -8,6 +8,8 @@ import {useSelector} from "react-redux";
 
 const Swipe = ({navigation}) => {
     const [characters, setCharacters] = useState(null)
+    const [swipedUsers, setSwipedUsers] = useState([])
+    const state = useSelector(state => state.user)
 
     const fetchUsers = async () => {
         const users = await axios({
@@ -19,10 +21,11 @@ const Swipe = ({navigation}) => {
     }
 
     useEffect(() => {
+        let exclude = state.user.matches // exclude previous matches + own account
+        exclude.push(state.user.userId)
+        setSwipedUsers(exclude)
         fetchUsers()
     },[])
-
-    const state = useSelector(state => state.user)
 
     const updateMatches = async (matchID) => {
         await axios({
@@ -36,10 +39,11 @@ const Swipe = ({navigation}) => {
         });
     }
 
-
     const swiped = (direction, user) => {
         if (direction === "right") updateMatches(user.id)
     }
+
+    const  swipeOptions = characters?.filter(user => !swipedUsers.includes(user.id)) // exclude previously swiped users
 
     return (
         <>
@@ -52,7 +56,7 @@ const Swipe = ({navigation}) => {
 
             <View style={styles.container}>
                 <View style={styles.cardContainer}>
-                    {characters?.map((character, index) =>
+                    {swipeOptions?.map((character, index) =>
 
                         <TinderCard  key={character.firstName} onSwipe={(dir) => swiped(dir, character)} >
                             <Card character={character}/>
