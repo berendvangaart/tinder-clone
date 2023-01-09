@@ -19,7 +19,7 @@ const Swipe = ({navigation}) => {
     const fetchUsers = async () => {
         const users = await axios({
             method: 'GET',
-            url: 'http://localhost:8080/users',
+            url: `${process.env.REACT_APP_BACK_END_URL}/users`,
             headers: {'Content-Type': 'application/json'},
         });
         setCharacters(await users.data)
@@ -35,7 +35,7 @@ const Swipe = ({navigation}) => {
     const updateMatches = async (matchID) => {
         await axios({
             method: 'POST',
-            url: 'http://localhost:8080/match',
+            url: `${process.env.REACT_APP_BACK_END_URL}/match`,
             headers: {'Content-Type': 'application/json'},
             data: {
                 "userId" : state.user.userId,

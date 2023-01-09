@@ -8,11 +8,6 @@ import {onboardingValidation} from "../util/util";
 import {useDispatch, useSelector} from "react-redux";
 import {inputFormValue} from "../store/profile-details/profileDetails.actions";
 
-/**
- * todo - form validation
- * todo - default img
- * todo - add img icon
- */
 const Onboarding = ({navigation}) => {
     const [image, setImage] = useState(null);
     const [firstName, setFirstName] = useState('');

@@ -16,7 +16,7 @@ const Match = ({navigation}) => {
     const fetchMatches = async () => {
         const users = await axios({
             method: 'GET',
-            url: 'http://localhost:8080/users',
+            url: `${process.env.REACT_APP_BACK_END_URL}/users`,
             headers: {'Content-Type': 'application/json'},
         });
 
@@ -30,7 +30,7 @@ const Match = ({navigation}) => {
         try {
             await axios({
                 method: 'DELETE',
-                url: 'http://localhost:8080/match',
+                url: `${process.env.REACT_APP_BACK_END_URL}/match`,
                 headers: {'Content-Type': 'application/json'},
                 data: {
                     "userId": state.user.userId,

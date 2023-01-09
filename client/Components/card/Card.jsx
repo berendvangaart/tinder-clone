@@ -19,13 +19,12 @@ const Card = ({character}) => {
                 <ImageBackground
                     style={styles.cardImage}
                     source={{
-                        uri: `http://localhost:8080/storage/${character.img}`,
+                        uri: `${process.env.REACT_APP_BACK_END_URL}/storage/${character.img}`,
                     }}
                 >
                     <Pressable
                         style={styles.cardInfoContainer}
                         onTouchStart={() => showBio()}
-
                     >
                         <Text style={styles.name}>{character.firstName}</Text>
                         <Text style={styles.jobTitle}>{character.jobTitle}</Text>

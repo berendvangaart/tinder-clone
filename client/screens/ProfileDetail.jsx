@@ -42,7 +42,7 @@ const ProfileDetail = ({navigation}) => {
             body.append('imageName', state.image.substring(state.image.indexOf("/ImagePicker/") + 13)) // clean string
 
             try {
-                const response = await axios.post('http://localhost:8080/signUp', body, {
+                const response = await axios.post(`${process.env.REACT_APP_BACK_END_URL}/signUp`, body, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

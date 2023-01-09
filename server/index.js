@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
         cb(null, './storage')
     },
     filename: (req, file, cb) => {
-        console.log(file.originalname)
         cb(null, `${file.originalname}`)
     }
 })
@@ -102,7 +101,6 @@ app.post('/login', async (req, res) => {
             res.status(400).send('bad credentials')
         }
 
-
     } catch (e) {
         console.error('error login', e)
     } finally {
@@ -148,10 +146,7 @@ app.get('/user', async (req, res) => {
     } finally {
         await client.close()
     }
-
 })
-
-
 
 app.post('/match', async (req, res) => {
     const client = new MongoClient(URI)
@@ -196,6 +191,5 @@ app.delete('/match', async (req, res) => {
         await client.close()
     }
 })
-
 
 app.listen(PORT, () => console.log(`🚀🚀 server UP: Listening on port ${PORT} 🚀🚀`))

@@ -15,7 +15,6 @@ const Login = ({navigation}) => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
-
     const handleSubmit = async () => {
         setChecked(true)
 
@@ -25,7 +24,7 @@ const Login = ({navigation}) => {
             try {
                 const response = await axios({
                     method: 'POST',
-                    url: 'http://localhost:8080/login',
+                    url: `${process.env.REACT_APP_BACK_END_URL}/login`,
                     headers: {'Content-Type': 'application/json'},
                     data: {
                         "email" : email,
