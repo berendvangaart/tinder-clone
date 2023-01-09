@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import store from "./store/store";
 import Match from "./screens/Match";
 import Toast from 'react-native-toast-message';
+import { MenuProvider } from 'react-native-popup-menu';
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
 
     return (
 <Provider store={store}>
+    <MenuProvider>
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home" screenOptions={{
                 headerShown: false
@@ -29,6 +31,7 @@ export default function App() {
             </Stack.Navigator>
         </NavigationContainer>
     <Toast />
+    </MenuProvider>
  </Provider>
 
     );

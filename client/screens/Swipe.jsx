@@ -7,6 +7,7 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {addMatch, setUser} from "../store/user/user.actions";
 import {showToast} from "../util/util";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 
 const Swipe = ({navigation}) => {
     const [characters, setCharacters] = useState(null)
@@ -51,8 +52,14 @@ const Swipe = ({navigation}) => {
                 showToast("🔥 You got a new connection! 🔥")
             }
         }
+    }
 
-
+    const handleMenu = (val) => {
+        if (val === 1 ) navigation.navigate('Match')
+        else {
+            dispatch(setUser(null))
+            navigation.navigate("Home")
+        }
     }
 
     const  swipeOptions = characters?.filter(user => !swipedUsers.includes(user.id)) // exclude previously swiped users
@@ -61,9 +68,20 @@ const Swipe = ({navigation}) => {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Discover</Text>
-                <Pressable style={styles.IconContainer} onPress={() => navigation.navigate('Match')}>
-                    <Image style={styles.icon} source={require('../assets/matchIcon.png')} alt=""/>
-                </Pressable>
+
+                <Menu onSelect={value => handleMenu(value)}>
+                    <MenuTrigger style={styles.trigger}>
+                            <Image style={styles.icon} source={require('../assets/matchIcon.png')} alt=""/>
+                    </MenuTrigger>
+                    <MenuOptions>
+                        <MenuOption value={1}>
+                            <Text style={styles.menuOption}>Matches</Text>
+                        </MenuOption>
+                        <MenuOption value={2}>
+                            <Text style={styles.menuOption }>Sign out</Text>
+                        </MenuOption>
+                    </MenuOptions>
+                </Menu>
             </View>
 
             <View style={styles.container}>
@@ -148,10 +166,19 @@ const styles = {
         // borderWidth: 1,
         borderRadius: 100,
         // borderColor: '#999999',
-
-
     }, btnIcon : {
         height: 30,
         width: 30,
+    }, trigger: {
+        height: 54,
+        width: 54,
+        marginRight: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: '#999999',
+    }, menuOption : {
+        padding: 8,
     }
 }

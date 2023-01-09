@@ -21,7 +21,6 @@ const Match = ({navigation}) => {
         });
 
         const match = await users.data.filter(user => {
-            console.log("state. user matches: ",state.user.matches)
             return user.matches.includes(state.user.userId) && state.user.matches.includes(user.id) // todo check this
         })
         setMatches(match)
@@ -49,8 +48,6 @@ const Match = ({navigation}) => {
     useEffect(() => {
         fetchMatches()
     }, [])
-
-
 
 
     return (
