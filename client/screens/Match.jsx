@@ -3,16 +3,17 @@ import {defaultStyles} from "../styles";
 import {Image, Pressable, ScrollView, Text, View} from "react-native";
 import {Divider} from "@react-native-material/core";
 import MatchCard from "../Components/match-card/MatchCard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-
+import {setUser} from "../store/user/user.actions";
 
 
 const Match = ({navigation}) => {
     const state = useSelector(state => state.user)
+    const dispatch = useDispatch()
     const [matches, setMatches] = useState(null)
 
-    const fetchUsers = async () => {
+    const fetchMatches = async () => {
         const users = await axios({
             method: 'GET',
             url: 'http://localhost:8080/users',
@@ -20,15 +21,37 @@ const Match = ({navigation}) => {
         });
 
         const match = await users.data.filter(user => {
-            return user.matches.includes(state.user.userId) && state.user.matches.includes(user.id)
+            console.log("state. user matches: ",state.user.matches)
+            return user.matches.includes(state.user.userId) && state.user.matches.includes(user.id) // todo check this
         })
-
         setMatches(match)
     }
 
+    const deleteMatch = async (id) => {
+        try {
+            await axios({
+                method: 'DELETE',
+                url: 'http://localhost:8080/match',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    "userId": state.user.userId,
+                    "matchId": id
+                }
+            });
+        } catch (e) {
+            console.log(e)
+        }
+        setMatches(matches.filter(match => match.id !== id))
+        dispatch(setUser({ ...state.user, matches: state.user.matches.filter(match => match !== id) }))
+    }
+
+
     useEffect(() => {
-        fetchUsers()
+        fetchMatches()
     }, [])
+
+
+
 
     return (
         <View>
@@ -43,8 +66,14 @@ const Match = ({navigation}) => {
             <ScrollView >
 
                 <View style={styles.row}>
-                    {matches?.map((character, index) =>  <MatchCard key={index} character={character}/>)}
+                    {matches?.map((character, index) =>  <MatchCard key={index} character={character} deleteMatch={deleteMatch}/>)}
                 </View>
+
+                {matches?.length === 0 &&
+                    <View style={styles.row}>
+                        <Text>No matches yet</Text>
+                    </View>
+                }
 
             </ScrollView>
 

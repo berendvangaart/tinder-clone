@@ -1,4 +1,5 @@
-import {SET_USER} from "./user.types";
+import {ADD_MATCH, SET_USER} from "./user.types";
+import match from "../../screens/Match";
 
 const INITIAL_STATE = {
     user: null,
@@ -11,6 +12,14 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 user: action.payload,
+            };
+        case ADD_MATCH:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    matches: [...state.user.matches, action.payload],
+                },
             };
         default:
             return state;

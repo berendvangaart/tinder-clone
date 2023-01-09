@@ -1,7 +1,8 @@
 import React from 'react';
 import {Image, ImageBackground, Linking, Pressable, Text, View} from "react-native";
 
-const MatchCard = ({character}) => {
+const MatchCard = ({character, deleteMatch}) => {
+
     return (
         <View style={styles.card}>
             <ImageBackground style={styles.cardImage} source={{ uri: `http://localhost:8080/storage/${character.img}` }}>
@@ -11,7 +12,7 @@ const MatchCard = ({character}) => {
                     <Pressable style={styles.IconContainer} onPress={() => {Linking.openURL(character.linkedin)}}>
                         <Image  source={require('../../assets/linkedin.png')} alt=""/>
                     </Pressable>
-                    <Pressable style={styles.IconContainer} onPress={() => {}}>
+                    <Pressable style={styles.IconContainer} onPress={() => {deleteMatch(character.id)}}>
                         <Image  source={require('../../assets/cross.png')} alt=""/>
                     </Pressable>
                 </View>

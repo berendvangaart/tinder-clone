@@ -4,12 +4,14 @@ import TinderCard from 'react-tinder-card';
 import Card from "../Components/card/Card";
 import {defaultStyles} from "../styles";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addMatch, setUser} from "../store/user/user.actions";
 
 const Swipe = ({navigation}) => {
     const [characters, setCharacters] = useState(null)
     const [swipedUsers, setSwipedUsers] = useState([])
     const state = useSelector(state => state.user)
+    const dispatch = useDispatch()
 
     const fetchUsers = async () => {
         const users = await axios({
@@ -21,8 +23,9 @@ const Swipe = ({navigation}) => {
     }
 
     useEffect(() => {
-        let exclude = state.user.matches // exclude previous matches + own account
-        exclude.push(state.user.userId)
+        let exclude = state.user.matches?  state.user.matches: []// exclude previous matches + own account
+        if ( state.user.userId ) exclude.push(state.user.userId) //todo fix this
+
         setSwipedUsers(exclude)
         fetchUsers()
     },[])
@@ -37,6 +40,7 @@ const Swipe = ({navigation}) => {
                 "matchId" : matchID
             }
         });
+        dispatch(addMatch(matchID))
     }
 
     const swiped = (direction, user) => {

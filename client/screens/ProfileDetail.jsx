@@ -49,14 +49,14 @@ const ProfileDetail = ({navigation}) => {
                 });
 
                 if (response.status === 201) {
-                    console.log(response.data)
                     dispatch(setUser(response.data))
                     navigation.navigate('Swipe')
                 }
             } catch (err) {
                 console.log(err)
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
         }
     }
 
