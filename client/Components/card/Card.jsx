@@ -1,16 +1,50 @@
-import React from 'react';
-import {ImageBackground, Text, View} from "react-native";
+import React, {useState} from 'react';
+import {Alert, ImageBackground, Modal, Pressable, Text, View} from "react-native";
 
 const Card = ({character}) => {
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const showBio = () => {
+        Alert.alert(
+            //title
+            'Bio',
+            //body
+            character.bio,
+        );
+    }
+
     return (
-        <View style={styles.card}>
-            <ImageBackground style={styles.cardImage} source={{ uri: `http://localhost:8080/storage/${character.img}` }}>
-                <View style={styles.cardInfoContainer}>
-                    <Text style={styles.name}>{character.firstName}</Text>
-                    <Text style={styles.jobTitle}>{character.jobTitle}</Text>
+        <View>
+            <View style={styles.card}>
+                <ImageBackground
+                    style={styles.cardImage}
+                    source={{
+                        uri: `http://localhost:8080/storage/${character.img}`,
+                    }}
+                >
+                    <Pressable
+                        style={styles.cardInfoContainer}
+                        onTouchStart={() => showBio()}
+
+                    >
+                        <Text style={styles.name}>{character.firstName}</Text>
+                        <Text style={styles.jobTitle}>{character.jobTitle}</Text>
+                    </Pressable>
+                </ImageBackground>
+            </View>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(false);
+                }}
+            >
+                <View style={styles.modal}>
+                    <Text>{character.bio}</Text>
                 </View>
 
-            </ImageBackground>
+            </Modal>
         </View>
     );
 };
@@ -59,5 +93,9 @@ const styles = {
         justifyContent: 'center',
         display: 'flex',
         zIndex: -100,
+    }, modal: {
+        height: 100,
+        width: 100,
+        padding: 10,
     }
 }

@@ -14,6 +14,7 @@ const Swipe = ({navigation}) => {
     const [swipedUsers, setSwipedUsers] = useState([])
     const state = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const swipeOptions = characters?.filter(user => !swipedUsers.includes(user.id)) // exclude previously swiped users
 
     const fetchUsers = async () => {
         const users = await axios({
@@ -27,7 +28,6 @@ const Swipe = ({navigation}) => {
     useEffect(() => {
         let exclude = state.user.matches?  state.user.matches: []// exclude previous matches + own account
         if ( state.user.userId ) exclude.push(state.user.userId)
-
         setSwipedUsers(exclude)
         fetchUsers()
     },[])
@@ -62,16 +62,10 @@ const Swipe = ({navigation}) => {
         }
     }
 
-    const swipeOptions = characters?.filter(user => !swipedUsers.includes(user.id)) // exclude previously swiped users
-
     return (
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Discover</Text>
-
-                <Pressable style={styles.bioBtn} onPress={() => alert("show bio")}>
-                    <Image style={styles.icon} source={require('../assets/cards.png')} alt="" />
-                </Pressable>
 
                 <Menu onSelect={value => handleMenu(value)}>
                     <MenuTrigger style={styles.trigger}>
@@ -99,14 +93,14 @@ const Swipe = ({navigation}) => {
                 </View>
             </View>
 
-            <View style={styles.footer}>
-                <Pressable style={styles.button}  onPress={() => swipe('left')}>
-                    <Image style={styles.btnIcon} source={require('../assets/dislike.png')} alt=""/>
-                </Pressable>
-                <Pressable style={styles.button}  onPress={() => swipe('right')}>
-                    <Image style={styles.btnIcon} source={require('../assets/like.png')} alt=""/>
-                </Pressable>
-            </View>
+            {/*<View style={styles.footer}>*/}
+            {/*    <Pressable style={styles.button}  onPress={() => swipe('left')}>*/}
+            {/*        <Image style={styles.btnIcon} source={require('../assets/dislike.png')} alt=""/>*/}
+            {/*    </Pressable>*/}
+            {/*    <Pressable style={styles.button}  onPress={() => swipe('right')}>*/}
+            {/*        <Image style={styles.btnIcon} source={require('../assets/like.png')} alt=""/>*/}
+            {/*    </Pressable>*/}
+            {/*</View>*/}
         </>
     )
 };
@@ -184,16 +178,5 @@ const styles = {
         borderColor: '#999999',
     }, menuOption : {
         padding: 8,
-    }, bioBtn : {
-        height: 54,
-        width: 54,
-        marginRight: 32,
-        left: 100,
-         top: 580,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderRadius: 15,
-        borderColor: '#999999',
     }
 }
