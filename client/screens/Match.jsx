@@ -71,7 +71,7 @@ const Match = ({navigation}) => {
 
                 {matches?.length === 0 &&
                     <View style={styles.row}>
-                        <Text>No matches yet</Text>
+                        <Text>You got no connections at the moment</Text>
                     </View>
                 }
 

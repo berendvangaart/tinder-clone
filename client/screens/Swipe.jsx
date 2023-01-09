@@ -6,6 +6,7 @@ import {defaultStyles} from "../styles";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {addMatch, setUser} from "../store/user/user.actions";
+import {showToast} from "../util/util";
 
 const Swipe = ({navigation}) => {
     const [characters, setCharacters] = useState(null)
@@ -44,7 +45,14 @@ const Swipe = ({navigation}) => {
     }
 
     const swiped = (direction, user) => {
-        if (direction === "right") updateMatches(user.id)
+        if (direction === "right") {
+            updateMatches(user.id)
+            if (user.matches.includes(state.user.userId)) {
+                showToast("🔥 You got a new connection! 🔥")
+            }
+        }
+
+
     }
 
     const  swipeOptions = characters?.filter(user => !swipedUsers.includes(user.id)) // exclude previously swiped users

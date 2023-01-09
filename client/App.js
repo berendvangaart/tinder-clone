@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from "react-redux";
 import store from "./store/store";
 import Match from "./screens/Match";
+import Toast from 'react-native-toast-message';
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
                 <Stack.Screen name="Match" component={Match}/>
             </Stack.Navigator>
         </NavigationContainer>
+    <Toast />
  </Provider>
 
     );
