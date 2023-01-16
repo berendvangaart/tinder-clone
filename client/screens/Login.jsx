@@ -2,11 +2,10 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import FormField from "../Components/form-field/FormField";
-import {loginValidation} from "../util/util";
+import {loginValidation, showToast} from "../util/util";
 import axios from 'axios';
 import {useDispatch} from "react-redux";
 import {setUser} from "../store/user/user.actions";
-
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -37,8 +36,13 @@ const Login = ({navigation}) => {
                     navigation.navigate('Swipe') // navigate tp swipe screen
                 }
 
+                if (response.status === 401) {
+                    showToast("wrong email or password")
+                }
+
             } catch (err)  {
-                console.log(err)
+                showToast("wrong email or password", 'error')
+                // console.log(err)
             }
             setLoading(false)
         }

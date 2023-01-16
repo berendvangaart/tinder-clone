@@ -90,6 +90,7 @@ const Swipe = ({navigation}) => {
                             <Card character={character}/>
                         </TinderCard>
                     )}
+                    <Text style={styles.noMoreUsers}>No more users, please come back later 🕒</Text>
                 </View>
             </View>
 
@@ -178,5 +179,9 @@ const styles = {
         borderColor: '#999999',
     }, menuOption : {
         padding: 8,
+    } , noMoreUsers : {
+        marginTop: 25,
+        fontSize: 16,
+        zIndex: -1
     }
 }

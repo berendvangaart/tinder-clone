@@ -13,10 +13,10 @@ export const onboardingValidation = (firstName, lastName) => {
 export const profileDetailValidation = (password, email, linkedIn, JobTitle) => {
 
     let invalidFields = []
-    // if (password.length < 1) invalidFields.push('password')
-    // if (!emailRegex.test(email)) invalidFields.push('email')
-    // if (!linkedInRegex.test(linkedIn)) invalidFields.push('linkedin')
-    // if (JobTitle.length < 1) invalidFields.push('jobTitle')
+    if (password.length < 1) invalidFields.push('password')
+    if (!emailRegex.test(email)) invalidFields.push('email')
+    if (!linkedInRegex.test(linkedIn)) invalidFields.push('linkedin')
+    if (JobTitle.length < 1) invalidFields.push('jobTitle')
     return invalidFields
 }
 

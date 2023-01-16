@@ -98,7 +98,7 @@ app.post('/login', async (req, res) => {
             })
             res.status(201).json({token, userId: user.id, email: email.toLowerCase(), matches: user.matches})
         } else {
-            res.status(400).send('bad credentials')
+            res.status(401).send('bad credentials')
         }
 
     } catch (e) {
